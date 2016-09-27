@@ -5,30 +5,30 @@ El juego de Batlla Naval se desarrolla en un tablero de 10 x 10. En él se coloc
 Desarrollo
 Queremos hacer una versión digital para un jugador. El tablero inicial se puede ver así:
 
-  ABCDEFGHIJ
+  ABCDEFGHIJ<br>
  +---------<br>
 0|~~~~~~~~~<br>
-1|~~~~~~~~~
-2|~~~~~~~~~
-3|~~~~~~~~~
-4|~~~~~~~~~
-5|~~~~~~~~~
-6|~~~~~~~~~
-7|~~~~~~~~~
-8|~~~~~~~~~
-9|~~~~~~~~~
+1|~~~~~~~~~<br>
+2|~~~~~~~~~<br>
+3|~~~~~~~~~<br>
+4|~~~~~~~~~<br>
+5|~~~~~~~~~<br>
+6|~~~~~~~~~<br>
+7|~~~~~~~~~<br>
+8|~~~~~~~~~<br>
+9|~~~~~~~~~<br>
 
 Cuando un barco ha sido impactado, la celda se como una X. Una vez que un barco ha sido hundido, todas las celdas que ocupa se ven por la primera letra del barco: P, A, S, D o B. Una celda impactada que no tiene un barco se como un .
 
-  ABCDEFGHIJ
- +---------
-0|~~~~~~~~~
-1|~~~~~~~~~
-2|~~~...~~~
-3|~SSS~~~~~
-4|~~~~~~~~~
-5|~~~~~..~~
-6|~~~~X~~~~
-7|~~~~X~~~~
-8|~~~~~~~~~
-9|~~~~~~~~.
+  ABCDEFGHIJ<br>
+ +---------<br>
+0|~~~~~~~~~<br>
+1|~~~~~~~~~<br>
+2|~~~...~~~<br>
+3|~SSS~~~~~<br>
+4|~~~~~~~~~<br>
+5|~~~~~..~~<br>
+6|~~~~X~~~~<br>
+7|~~~~X~~~~<br>
+8|~~~~~~~~~<br>
+9|~~~~~~~~.<br>
