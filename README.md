@@ -6,8 +6,8 @@ Desarrollo
 Queremos hacer una versión digital para un jugador. El tablero inicial se puede ver así:
 
   ABCDEFGHIJ
- +---------
-0|~~~~~~~~~
+ +---------<br>
+0|~~~~~~~~~<br>
 1|~~~~~~~~~
 2|~~~~~~~~~
 3|~~~~~~~~~
