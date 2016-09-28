@@ -1,28 +1,22 @@
 package com.josecode.battleship.element;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.josecode.battleship.util.Orientation;
-import com.josecode.battleship.util.Pair;
 import com.josecode.battleship.util.ShipType;
 
-public class Ship<R, L> implements Element {
+public class Ship<L, R> implements Element {
 
 	int cellStarting;
 	int longitude;
 	ShipType shipType;
 	Orientation orientation;
-	Set<Pair<L,R>> set = new HashSet<>();
+	Set<Pair<L,R>> position = new LinkedHashSet<>();
+	Pair<L, R> positionStarting;
 	
-	public Set<Pair<L, R>> getSet() {
-		return set;
-	}
-
-	public void setSet(Set<Pair<L, R>> set) {
-		this.set = set;
-	}
-
 	public Ship(final int cellStarting, final int longitude, final ShipType shipType,
 			final Orientation orientation) {
 		super();
@@ -32,4 +26,29 @@ public class Ship<R, L> implements Element {
 		this.orientation = orientation;
 	}
 	
+	public Ship(){}
+	
+	public Set<Pair<L, R>> getPosition() {
+		return position;
+	}
+
+	public void setPosition(Set<Pair<L, R>> position) {
+		this.position = position;
+	}
+	
+	public Orientation getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(Orientation orientation) {
+		this.orientation = orientation;
+	}
+	
+	public int getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(int longitude) {
+		this.longitude = longitude;
+	}
 }

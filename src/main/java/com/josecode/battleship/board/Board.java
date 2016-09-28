@@ -1,11 +1,20 @@
 package com.josecode.battleship.board;
 
-public class Board {
+import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+
+
+public class Board<L, R> {
   
 	private Cell [][] cells;
-
+	Set<Pair<L,R>> addCells;
+	
 	public Board(final int length) {
 		cells = new Cell[length][length];
+		addCells = new HashSet<>();
 	} 
 		
 	public  void addCell(int x, int y, Cell cell){

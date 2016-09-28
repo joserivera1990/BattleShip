@@ -1,5 +1,5 @@
 package com.josecode.battleship.util;
 
 public enum Orientation {
-		X,Y
+		N,S,W,E;
 }
