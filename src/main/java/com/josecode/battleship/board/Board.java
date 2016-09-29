@@ -11,7 +11,16 @@ public class Board<L, R> {
   
 	private Cell [][] cells;
 	Set<Pair<L,R>> cellsAdded;
+	int length;
 	
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
 	public Board(final int length) {
 		cells = new Cell[length][length];
 		cellsAdded = new HashSet<>();
@@ -30,7 +39,11 @@ public class Board<L, R> {
 		for (int i = 0; i < cells.length; i++) {	
 			System.out.print(i + " | ");
 			for (int j = 0; j < cells.length; j++) {
-				System.out.print(cells[i][j].getCode()+ " ");
+				if (cells[i][j] == null) {
+					System.out.print("N"+ " ");
+				} else {
+					System.out.print(cells[i][j].getCode()+ " ");
+				}
 			}
 			System.out.println("\n");
 		}
