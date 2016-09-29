@@ -14,7 +14,7 @@ public class Ship<L, R> implements Element {
 	int longitude;
 	ShipType shipType;
 	Orientation orientation;
-	Set<Pair<L,R>> position = new LinkedHashSet<>();
+	Set<Pair<L,R>> position;
 	Pair<L, R> positionStarting;
 	
 	public Ship(final int cellStarting, final int longitude, final ShipType shipType,
@@ -26,7 +26,9 @@ public class Ship<L, R> implements Element {
 		this.orientation = orientation;
 	}
 	
-	public Ship(){}
+	public Ship(){
+		position = new LinkedHashSet<>();
+	}
 	
 	public Set<Pair<L, R>> getPosition() {
 		return position;
@@ -50,5 +52,17 @@ public class Ship<L, R> implements Element {
 
 	public void setLongitude(int longitude) {
 		this.longitude = longitude;
+	}
+	
+	public Pair<L, R> getPositionStarting() {
+		return positionStarting;
+	}
+
+	public void setPositionStarting(Pair<L, R> positionStarting) {
+		this.positionStarting = positionStarting;
+	}
+	
+	public void inicializarPosition(){
+		position = new LinkedHashSet<>();
 	}
 }

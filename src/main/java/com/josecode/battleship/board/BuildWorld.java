@@ -2,9 +2,11 @@ package com.josecode.battleship.board;
 
 
 import com.josecode.battleship.element.Ship;
+import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
 import com.josecode.battleship.movement.Ahead;
 import com.josecode.battleship.movement.IMovement;
+import com.josecode.battleship.movement.Right;
 import com.josecode.battleship.util.Orientation;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 public class BuildWorld<L,R> {
@@ -29,8 +32,8 @@ public class BuildWorld<L,R> {
 		// TODO Auto-generated method stub
 		 Random rnd = new Random();
 		String test = "A,4";
-		System.out.println((int) (Math.random() * 10) + 1);
-		System.out.println((int) (Math.random() * 10) + 1);
+		//System.out.println((int) (Math.random() * 10) + 1);
+		//System.out.println((int) (Math.random() * 10) + 1);
 		
 		
 		Set<Cell> setCells = new HashSet<>();
@@ -52,46 +55,78 @@ public class BuildWorld<L,R> {
 				
 		
 		
-		for (int i = 0; i < 10; i++) {
+		/*for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				Cell cell = new Cell(i, j,null, "N");
 				board.addCell(i, j, cell);
 				setCells.add(cell);
 			}
-		}
+		}*/
 		
 		//setCells.c
-		
-		new BuildWorld<>().buildShipInitial("");
+		Board board1 = new Board<L, R>(10);
+		new BuildWorld<>().buildShipInitial(5,board1,9,7,0);
+		new BuildWorld<>().buildShipInitial(4,board1,5,6,0);
+		new BuildWorld<>().buildShipInitial(7,board1,4,4,0);
+		/*new BuildWorld<>().buildShipInitial(5,board1);
+		new BuildWorld<>().buildShipInitial(7,board1);
+		new BuildWorld<>().buildShipInitial(9,board1);
+		new BuildWorld<>().buildShipInitial(5,board1);
+		new BuildWorld<>().buildShipInitial(4,board1);
+		new BuildWorld<>().buildShipInitial(7,board1);
+		new BuildWorld<>().buildShipInitial(5,board1);
+		new BuildWorld<>().buildShipInitial(7,board1);
+		new BuildWorld<>().buildShipInitial(9,board1);*/
 		//board.printBoard();
 	}
 	
-	public  void buildShipInitial(String parameters) {
-		int lenght = 2;
-		Pair<L, R> positionStarting = (Pair<L, R>) Pair.of(3, 3);
-		Set<Pair<L, R>> setPosition = new LinkedHashSet<>();
-		setPosition.add(positionStarting);
+	public  void buildShipInitial(int lenghtBoard,Board board,int x,int y,int numberTimes) {
+		//x = (int) (Math.random() * 9) + 1;
+		//y = (int) (Math.random() * 9) + 1;
+		System.out.println(x);
+		System.out.println(y);
+		Pair<L, R> positionStarting = (Pair<L, R>) Pair.of(x, y);
 		Ship<L, R> ship = new Ship<>();
-		ship.setPosition(setPosition);
-		ship.setOrientation(Orientation.N);
+		ship.setPositionStarting(positionStarting);
+		ship.setLongitude(10);
 		List<IMovement<L, R>> listMovement = new ArrayList<>();
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < lenghtBoard-1; i++) {
 			IMovement<L, R> movement = new Ahead<>();
 			listMovement.add(movement);
 		}
-		goOverMovements(listMovement,ship);
+		boolean successful = goOverMovements(listMovement,ship,board,numberTimes);
+		if (!successful){
+			numberTimes++;
+			System.out.println("repeat"+numberTimes);
+			if (numberTimes == 10) {
+				throw new AssertionError("Ship without orientation");
+			}
+			buildShipInitial(lenghtBoard, board,0,0,numberTimes);
+		}else {
+			board.getCellsAdded().addAll(ship.getPosition());
+			System.out.println(ship.getPosition());
+		}
+
 	}
 	
-	public void goOverMovements(List<IMovement<L, R>> listMovement,Ship<L, R> ship) {
-		for (IMovement<L, R> iMovement : listMovement) {
-			try {
-				iMovement.doMovement(ship);
-			} catch (OutOfLimitsException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public boolean goOverMovements(List<IMovement<L, R>> listMovement,Ship<L, R> ship,Board board,int numberTimes) {
+		try {
+			IMovement<L, R> movement = new Right<>();
+	    	movement.doMovement(ship,board);
+			for (IMovement<L, R> iMovement : listMovement) {
+				iMovement.doMovement(ship,board);
 			}
+			return true;
+		} catch (OutOfLimitsException | CellPopulatedException e) {
+            if (!ship.getOrientation().equals(Orientation.W)) {
+            	ship.inicializarPosition();
+            	goOverMovements(listMovement, ship,board,numberTimes);            	
+            } else {
+            	return false;
+            }
 		}
-		System.out.println(ship.getPosition());
+		return false;
+		
 	}
 	
 }

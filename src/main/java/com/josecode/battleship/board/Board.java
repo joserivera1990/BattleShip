@@ -10,11 +10,11 @@ import org.apache.commons.lang3.tuple.Pair;
 public class Board<L, R> {
   
 	private Cell [][] cells;
-	Set<Pair<L,R>> addCells;
+	Set<Pair<L,R>> cellsAdded;
 	
 	public Board(final int length) {
 		cells = new Cell[length][length];
-		addCells = new HashSet<>();
+		cellsAdded = new HashSet<>();
 	} 
 		
 	public  void addCell(int x, int y, Cell cell){
@@ -36,4 +36,11 @@ public class Board<L, R> {
 		}
 	}
 	
+	public Set<Pair<L, R>> getCellsAdded() {
+		return cellsAdded;
+	}
+
+	public void setCellsAdded(Set<Pair<L, R>> cellsAdded) {
+		this.cellsAdded = cellsAdded;
+	}
 }	
