@@ -1,6 +1,6 @@
 package com.josecode.battleship.element;
 
-public class EmptyCell implements Element {
+public class EmptyCell extends Element {
 	
 	@Override
 	public String toString() {

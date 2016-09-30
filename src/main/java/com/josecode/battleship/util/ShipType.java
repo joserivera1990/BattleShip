@@ -17,6 +17,15 @@ public enum ShipType {
 		return id;
 	}
 	
+	public static ShipType getEnum(String id) {
+		for (ShipType value : ShipType.values()) {
+			if (value.id.equals(id)) {
+				return value;
+			}
+		}	
+		return null;
+		
+	}
 }
 
 

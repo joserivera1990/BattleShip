@@ -9,18 +9,20 @@ import com.josecode.battleship.board.Board;
 import com.josecode.battleship.element.Ship;
 import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
+import com.josecode.battleship.util.Util;
 
 public interface IMovement<L,R> {
 	
 	public void doMovement(Ship<L,R> ship,Board board) throws OutOfLimitsException, CellPopulatedException;
     
 	@SuppressWarnings("unchecked")
-	default Pair<L, R> getLastStep(Ship<L,R> ship,Board board) throws OutOfLimitsException, CellPopulatedException {
+	default Pair<L, R> getLastStep(Ship<L,R> ship,Board board) throws OutOfLimitsException, 
+		CellPopulatedException {
 		
 		if (ship.getPosition().isEmpty()) {
 			ship.getPosition().add(ship.getPositionStarting());
-			int x = (int) ship.getPositionStarting().getLeft();
-			int y = (int) ship.getPositionStarting().getRight();
+			int x = Util.getLeft(ship.getPositionStarting());
+			int y = Util.getRight(ship.getPositionStarting());
 			checkPosibleShipPosition(x, y, board.getLength(), board.getCellsAdded());
 			return ship.getPositionStarting();
 		}
@@ -32,7 +34,8 @@ public interface IMovement<L,R> {
 		return lastPosition;
 	}
 	
-	default void checkPosibleShipPosition(int x, int y, int longitude,Set<Pair<L,R>> cellsOcuped) throws OutOfLimitsException, CellPopulatedException {
+	default void checkPosibleShipPosition(int x, int y, int longitude,Set<Pair<L,R>> cellsOcuped) 
+			throws OutOfLimitsException, CellPopulatedException {
 		if (x == longitude || y == longitude || x == -1 || y == -1 ) {
 			throw new OutOfLimitsException("Out of Limit");
 		}

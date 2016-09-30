@@ -8,22 +8,19 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.josecode.battleship.util.Orientation;
 import com.josecode.battleship.util.ShipType;
 
-public class Ship<L, R> implements Element {
+public class Ship<L, R> extends Element {
 
-	int cellStarting;
 	int longitude;
-	ShipType shipType;
 	Orientation orientation;
 	Set<Pair<L,R>> position;
 	Pair<L, R> positionStarting;
 	
-	public Ship(final int cellStarting, final int longitude, final ShipType shipType,
-			final Orientation orientation) {
+	public Ship(final int longitude, final ShipType shipType) {
 		super();
-		this.cellStarting = cellStarting;
 		this.longitude = longitude;
 		this.shipType = shipType;
-		this.orientation = orientation;
+		this.orientation = Orientation.N;
+		this.position = new LinkedHashSet<>();
 	}
 	
 	public Ship(){
@@ -64,5 +61,13 @@ public class Ship<L, R> implements Element {
 	
 	public void inicializarPosition(){
 		position = new LinkedHashSet<>();
+	}
+	
+	public ShipType getShipType() {
+		return shipType;
+	}
+
+	public void setShipType(ShipType shipType) {
+		this.shipType = shipType;
 	}
 }

@@ -10,10 +10,6 @@ public class Right<L,R> implements IMovement<L,R>{
 	@Override
 	public void doMovement(Ship<L, R> ship,Board board){
 		
-		if (ship.getOrientation() == null) {
-			ship.setOrientation(Orientation.N);
-			return;
-		}
 		switch (ship.getOrientation()) {
 			case N:
 				ship.setOrientation(Orientation.E);
