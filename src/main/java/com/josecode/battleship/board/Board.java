@@ -1,15 +1,19 @@
 package com.josecode.battleship.board;
 
 import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.josecode.battleship.element.Ship;
 import com.josecode.battleship.element.ThrowBad;
+import com.josecode.battleship.util.ShipUtil;
 
 
 
-public class Board<L, R> {
+public class Board<L, R> implements Observer{
   
 	private Cell [][] cells;
 	Set<Pair<L,R>> cellsAdded;
@@ -60,7 +64,22 @@ public class Board<L, R> {
 		Cell cell = this.cells[y][x];
         if (cell == null) {
         	this.cells[y][x] = new Cell(new ThrowBad());
+        } else {
+        	cell.getElement().setHit(true);
         }
+	}
+	
+	@Override
+    public void update(Observable observable, Object args) {
+    	System.out.println("ingreso1");
+		if (args instanceof Ship) {
+        	System.out.println("ingreso");
+        	ShipUtil.checkPointsShip((Ship) args,this);
+        }
+    }
+	
+	public Cell getSpecificCell(int x, int y) {
+		return this.cells[y][x];
 	}
 
 }	

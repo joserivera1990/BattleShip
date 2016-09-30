@@ -9,7 +9,6 @@ public class Cell {
 	
 	public Cell(final Element element) {
 		this.element = element;
-		this.code = code;
 	}
 	
 	public Element getElement() {

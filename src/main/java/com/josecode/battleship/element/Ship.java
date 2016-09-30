@@ -1,10 +1,10 @@
 package com.josecode.battleship.element;
 
 import java.util.LinkedHashSet;
+import java.util.Observable;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
-
 import com.josecode.battleship.util.Orientation;
 import com.josecode.battleship.util.ShipType;
 
@@ -16,7 +16,10 @@ public class Ship<L, R> extends Element {
 	Pair<L, R> positionStarting;
 	ShipType shipType;
 	boolean isSunked;
+	boolean isHit;
 	
+	private static final ShipObservable OBSERVABLE;
+
 	public Ship(final int longitude, final ShipType shipType,final String code) {
 		super();
 		this.longitude = longitude;
@@ -24,9 +27,42 @@ public class Ship<L, R> extends Element {
 		this.orientation = Orientation.N;
 		this.position = new LinkedHashSet<>();
 		this.code = code;
-		this.isSunked = false;
 	}
 	
+	
+	
+	public Ship(Ship<L,R> another,Pair<L, R> lastPosition) {
+		super();
+		this.longitude = another.getLongitude();
+		this.orientation = another.getOrientation();
+		this.position = another.getPosition();
+		this.positionStarting = lastPosition;
+		this.shipType = another.shipType;
+	}
+
+
+
+	public boolean isHit() {
+		return isHit;
+	}
+
+	public void setHit(boolean isHit) {
+		this.isHit = isHit;
+		synchronized (OBSERVABLE) {
+            OBSERVABLE.setChanged();
+            OBSERVABLE.notifyObservers(this);            
+        }
+		
+	}
+
+	static {
+        OBSERVABLE = new ShipObservable();
+    }
+	
+	public static Observable getObservable() {
+		return OBSERVABLE;
+	}
+	  
 	public Ship(){
 		position = new LinkedHashSet<>();
 	}
@@ -74,4 +110,11 @@ public class Ship<L, R> extends Element {
 	public void setShipType(ShipType shipType) {
 		this.shipType = shipType;
 	}
+	
+    private static class ShipObservable extends Observable {
+        @Override
+        public synchronized void setChanged() {
+            super.setChanged();
+        }
+    }
 }

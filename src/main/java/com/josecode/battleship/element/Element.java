@@ -11,5 +11,8 @@ package com.josecode.battleship.element;
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	public abstract void setHit(boolean isHit);
+	
 	 
 }
