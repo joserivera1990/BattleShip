@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.josecode.battleship.element.ThrowBad;
+
 
 
 public class Board<L, R> {
@@ -26,7 +28,7 @@ public class Board<L, R> {
 		return cells;
 	}
 	
-	public void printBoard(){
+	public void printBoard() {
 		System.out.print("    0 1 2 3 4 5 6 7 8 9\n");
 		System.out.print("  + - - - - - - - - - -\n");	
 		for (int i = 0; i < cells.length; i++) {	
@@ -35,7 +37,7 @@ public class Board<L, R> {
 				if (cells[i][j] == null) {
 					System.out.print("~"+ " ");
 				} else {
-					System.out.print(cells[i][j].getElement().getShipType().getId()+ " ");
+					System.out.print(cells[i][j].getElement().getCode()+ " ");
 				}
 			}
 			System.out.println("\n");
@@ -52,6 +54,13 @@ public class Board<L, R> {
 	
 	public int getLength() {
 		return length;
+	}
+	
+	public void checkSpecificCell(int x, int y) {
+		Cell cell = this.cells[y][x];
+        if (cell == null) {
+        	this.cells[y][x] = new Cell(new ThrowBad());
+        }
 	}
 
 }	

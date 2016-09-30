@@ -14,13 +14,17 @@ public class Ship<L, R> extends Element {
 	Orientation orientation;
 	Set<Pair<L,R>> position;
 	Pair<L, R> positionStarting;
+	ShipType shipType;
+	boolean isSunked;
 	
-	public Ship(final int longitude, final ShipType shipType) {
+	public Ship(final int longitude, final ShipType shipType,final String code) {
 		super();
 		this.longitude = longitude;
 		this.shipType = shipType;
 		this.orientation = Orientation.N;
 		this.position = new LinkedHashSet<>();
+		this.code = code;
+		this.isSunked = false;
 	}
 	
 	public Ship(){

@@ -1,11 +1,15 @@
 package com.josecode.battleship.element;
 
-import com.josecode.battleship.util.ShipType;
-
  public abstract class Element {
-		ShipType shipType;
-		
-		public ShipType getShipType() {
-			return shipType;
-		}
+       
+	 public String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	 
 }

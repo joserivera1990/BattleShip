@@ -23,7 +23,7 @@ public enum ShipType {
 				return value;
 			}
 		}	
-		return null;
+		throw new AssertionError("Value: "+id + " no exist");
 		
 	}
 }
