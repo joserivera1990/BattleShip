@@ -41,7 +41,7 @@ public class Board<L, R> implements Observer{
 				if (cells[i][j] == null) {
 					System.out.print("~"+ " ");
 				} else {
-					System.out.print(cells[i][j].getElement().getCode()+ " ");
+					System.out.print(ShipUtil.returnCodePrint(cells[i][j].getElement())+ " ");
 				}
 			}
 			System.out.println("\n");
@@ -65,15 +65,13 @@ public class Board<L, R> implements Observer{
         if (cell == null) {
         	this.cells[y][x] = new Cell(new ThrowBad());
         } else {
-        	cell.getElement().setHit(true);
+        	((Ship<L,R>)cell.getElement()).setHit(true);
         }
 	}
 	
 	@Override
     public void update(Observable observable, Object args) {
-    	System.out.println("ingreso1");
 		if (args instanceof Ship) {
-        	System.out.println("ingreso");
         	ShipUtil.checkPointsShip((Ship) args,this);
         }
     }

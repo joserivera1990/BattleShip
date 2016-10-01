@@ -37,7 +37,8 @@ public class Ship<L, R> extends Element {
 		this.orientation = another.getOrientation();
 		this.position = another.getPosition();
 		this.positionStarting = lastPosition;
-		this.shipType = another.shipType;
+		this.shipType = another.getShipType();
+		this.code = another.getCode();
 	}
 
 
@@ -109,6 +110,14 @@ public class Ship<L, R> extends Element {
 
 	public void setShipType(ShipType shipType) {
 		this.shipType = shipType;
+	}
+	
+	public boolean isSunked() {
+		return isSunked;
+	}
+
+	public void setSunked(boolean isSunked) {
+		this.isSunked = isSunked;
 	}
 	
     private static class ShipObservable extends Observable {

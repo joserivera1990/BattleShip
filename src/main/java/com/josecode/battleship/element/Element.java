@@ -12,7 +12,4 @@ package com.josecode.battleship.element;
 		this.code = code;
 	}
 	
-	public abstract void setHit(boolean isHit);
-	
-	 
 }

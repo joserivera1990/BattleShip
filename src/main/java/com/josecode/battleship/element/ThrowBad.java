@@ -6,6 +6,4 @@ public class ThrowBad extends Element {
 		this.code = ".";
 	}
 	
-	public void setHit(boolean isHit) {
-	}
 }

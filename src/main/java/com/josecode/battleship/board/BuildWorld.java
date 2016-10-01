@@ -26,16 +26,7 @@ public class BuildWorld<L,R> {
 	    }
 		board.printBoard();
 	}
-	
-	private void addCellToBoard(Ship<L, R> ship,Board<L, R> board) {
-		final Iterator itr = ship.getPosition().iterator();
-		while (itr.hasNext()) {
-			Pair<L, R> lastPosition = (Pair<L, R>) itr.next();
-			Cell cell = new Cell(ship);
-			board.addCell(Util.getRight(lastPosition), Util.getLeft(lastPosition), cell);
-		}
-	}
-	
+		
 	private  Ship<L, R> buildShipInitial(Board<L, R> board,int numberTimes,Ship<L, R> ship) {
         int x = Util.getRandomNumber(board.getLength());
         int y = Util.getRandomNumber(board.getLength());		
@@ -54,11 +45,11 @@ public class BuildWorld<L,R> {
 			goOverMovements(listMovement,ship,board,numberTimes);
 			board.getCellsAdded().addAll(ship.getPosition());
 		} catch (CellPopulatedException | OutOfLimitsException | AllOrientationAreBusyException e) {
-			againBuilShipInitial(listMovement, board, numberTimes, ship);
+			againBuilShipInitial(board, numberTimes, ship);
 		}
 	}
 	
-	private void againBuilShipInitial(List<IMovement<L, R>> listMovement,Board<L, R> board,int numberTimes,Ship<L, R> ship) {
+	private void againBuilShipInitial(Board<L, R> board,int numberTimes,Ship<L, R> ship) {
 	        ship.inicializarPosition();
 			numberTimes++;
 			System.out.println("repeat"+numberTimes);
@@ -88,4 +79,13 @@ public class BuildWorld<L,R> {
     	goOverMovements(listMovement, ship,board,numberTimes);    
 	}
 	
+	private void addCellToBoard(Ship<L, R> ship,Board<L, R> board) {
+		final Iterator itr = ship.getPosition().iterator();
+		System.out.println(ship.getPosition());
+		while (itr.hasNext()) {
+			Pair<L, R> lastPosition = (Pair<L, R>) itr.next();
+			Cell cell = new Cell(new Ship<L, R>(ship, lastPosition));
+			board.addCell(Util.getRight(lastPosition), Util.getLeft(lastPosition), cell);
+		}
+	}
 }
