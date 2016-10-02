@@ -5,8 +5,10 @@ import java.util.Observable;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
+
 import com.josecode.battleship.util.Orientation;
 import com.josecode.battleship.util.ShipType;
+import com.josecode.battleship.util.ShipUtil;
 
 public class Ship<L, R> extends Element {
 
@@ -24,7 +26,7 @@ public class Ship<L, R> extends Element {
 		super();
 		this.longitude = longitude;
 		this.shipType = shipType;
-		this.orientation = Orientation.N;
+		this.orientation = ShipUtil.getRandomOrientation();
 		this.position = new LinkedHashSet<>();
 		this.code = code;
 	}

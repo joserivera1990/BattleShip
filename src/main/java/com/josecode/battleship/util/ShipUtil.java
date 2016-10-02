@@ -1,5 +1,7 @@
 package com.josecode.battleship.util;
 
+import java.util.Random;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.josecode.battleship.board.Board;
@@ -11,12 +13,14 @@ public class ShipUtil {
     
 	private static final String CODE_EMPTY = "~";
 	private static final String CODE_SHIP_HIT = "X";
+	private static final String CODES_ORIENTATION = "NSWE";
 	
 	private ShipUtil(){}
 	
 	public static <L, R> void checkPointsShip(Ship<L,R> ship,Board<L,R> board){
-          System.out.println("hit"+ship.getPosition().stream().allMatch(s->isShipHit(s, board)));
-          final boolean isAllHit = ship.getPosition().stream().allMatch( s -> isShipHit(s, board));
+          final boolean isAllHit = ship.getPosition()
+        		  					   .stream()
+        		  					   .allMatch( s -> isShipHit(s, board));
           if (isAllHit) {
         	  changeShipsSunked(ship, board);
           }
@@ -38,7 +42,7 @@ public class ShipUtil {
 	public static String returnCodePrint(Element element) {
 		if (element instanceof Ship) {
         	if (((Ship) element).isSunked()) {
-        		    return element.getCode();
+        		return element.getCode();
         	} else if (((Ship) element).isHit()) {
         		return CODE_SHIP_HIT;
         	} 
@@ -46,5 +50,11 @@ public class ShipUtil {
         } else {
         	return element.getCode();
         } 
+	}
+	
+	public static Orientation getRandomOrientation() {
+		Random r = new Random();
+		char orientationRandom = CODES_ORIENTATION.charAt(r.nextInt(CODES_ORIENTATION.length()));
+	    return Orientation.getEnum(String.valueOf(orientationRandom));
 	}
 }

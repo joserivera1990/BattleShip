@@ -11,9 +11,7 @@ import com.josecode.battleship.element.Ship;
 import com.josecode.battleship.element.ThrowBad;
 import com.josecode.battleship.util.ShipUtil;
 
-
-
-public class Board<L, R> implements Observer{
+public class Board<L, R> implements Observer {
   
 	private Cell [][] cells;
 	Set<Pair<L,R>> cellsAdded;
@@ -64,7 +62,7 @@ public class Board<L, R> implements Observer{
 		Cell cell = this.cells[y][x];
         if (cell == null) {
         	this.cells[y][x] = new Cell(new ThrowBad());
-        } else {
+        } else if (cell.getElement() instanceof Ship) {
         	((Ship<L,R>)cell.getElement()).setHit(true);
         }
 	}

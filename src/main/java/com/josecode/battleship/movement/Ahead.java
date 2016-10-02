@@ -1,6 +1,5 @@
 package com.josecode.battleship.movement;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -11,7 +10,7 @@ import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
 import com.josecode.battleship.util.Util;
 
-public class Ahead<L,R> implements IMovement<L,R>{
+public class Ahead<L,R> implements IMovement<L,R> {
     
 	@Override
 	public void doMovement(Ship<L,R> ship,Board<L,R> board) throws OutOfLimitsException, CellPopulatedException {
@@ -62,13 +61,10 @@ public class Ahead<L,R> implements IMovement<L,R>{
 			throw new CellPopulatedException("Cell already populated");
 		}		
 	}
-	
+		
 	private Pair<L, R> getLastPosition(Set<Pair<L,R>> position) {
-		final Iterator itr = position.iterator();
-		Pair<L, R> lastPosition = (Pair<L, R>) itr.next();
-		while (itr.hasNext()) {
-			lastPosition =  (Pair<L, R>) itr.next();
-		}
-		return lastPosition;
+		return position.stream()
+		        	   .reduce((first,second) -> second)
+		               .get();
 	}
 }
