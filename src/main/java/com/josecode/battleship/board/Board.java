@@ -58,6 +58,7 @@ public class Board<L, R> implements Observer {
 		return length;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void checkSpecificCell(int x, int y) {
 		Cell cell = this.cells[y][x];
         if (cell == null) {
@@ -67,6 +68,7 @@ public class Board<L, R> implements Observer {
         }
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
     public void update(Observable observable, Object args) {
 		if (args instanceof Ship) {

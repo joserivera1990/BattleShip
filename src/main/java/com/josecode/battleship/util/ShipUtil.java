@@ -26,12 +26,13 @@ public class ShipUtil {
           }
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static <L, R> boolean isShipHit(Pair<L,R> pair,Board<L,R> board) {
 		Cell cell = board.getSpecificCell(Util.getLeft(pair), Util.getRight(pair));
 		return ((Ship<L,R>)cell.getElement()).isHit();
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	private static <L, R> void changeShipsSunked(Ship<L,R> ship,Board<L,R> board) {
 		ship.getPosition().stream().forEach( s -> {
 			Cell cell = board.getSpecificCell(Util.getLeft(s), Util.getRight(s));

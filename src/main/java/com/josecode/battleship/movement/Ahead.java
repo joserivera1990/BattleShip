@@ -12,6 +12,7 @@ import com.josecode.battleship.util.Util;
 
 public class Ahead<L,R> implements IMovement<L,R> {
     
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doMovement(Ship<L,R> ship,Board<L,R> board) throws OutOfLimitsException, CellPopulatedException {
 		Pair<L, R> lastPosition = getLastStep(ship,board);
@@ -51,6 +52,7 @@ public class Ahead<L,R> implements IMovement<L,R> {
 		return getLastPosition(ship.getPosition());
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void checkPosibleShipPosition(int x, int y, int longitude,Set<Pair<L,R>> cellsOcuped) 
 			throws OutOfLimitsException, CellPopulatedException {
 		if (x == longitude || y == longitude || x == -1 || y == -1 ) {

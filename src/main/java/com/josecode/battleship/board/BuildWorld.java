@@ -18,13 +18,14 @@ import org.apache.commons.lang3.tuple.Pair;
 public class BuildWorld<L,R> {
 		
 	public void createWorld(Board<L, R> board,List<Ship<L, R>> listShip) {
-		listShip.stream().forEach( s -> {
-			buildShipInitial(board, 0, s);	
-			addCellToBoard(s, board);
+		listShip.stream().forEach( ship -> {
+			buildShipInitial(board, 0, ship);	
+			addCellToBoard(ship, board);
 		});
 		board.printBoard();
 	}
-		
+	
+	@SuppressWarnings("unchecked")
 	protected  Ship<L, R> buildShipInitial(Board<L, R> board,int numberTimes,Ship<L, R> ship) {
         int x = Util.getRandomNumber(board.getLength());
         int y = Util.getRandomNumber(board.getLength());		
@@ -38,7 +39,7 @@ public class BuildWorld<L,R> {
 		return ship;
 	}
 	
-	private void doMovements(List<IMovement<L, R>> listMovement,Board<L, R> board,int numberTimes,Ship<L, R> ship) {
+	protected void doMovements(List<IMovement<L, R>> listMovement,Board<L, R> board,int numberTimes,Ship<L, R> ship) {
 		int numberOrietntationTry = 1;
 		try {
 			goAheadMovements(listMovement,ship,board,numberTimes,numberOrietntationTry);

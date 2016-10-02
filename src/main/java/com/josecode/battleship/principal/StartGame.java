@@ -43,8 +43,8 @@ public class StartGame {
 	}
 	
 	private static <L,R> void askNumber(Board<L,R> board,Scanner entradaEscaner) {
-		String x = Util.getNumberX(entradaEscaner);
-		String y = Util.getNumberY(entradaEscaner);
+		String x = Util.getNumberX(entradaEscaner,board.getLength());
+		String y = Util.getNumberY(entradaEscaner,board.getLength());
 	    board.checkSpecificCell(Integer.valueOf(x),Integer.valueOf(y));
 	    board.printBoard();
 	    askNumber(board,entradaEscaner);

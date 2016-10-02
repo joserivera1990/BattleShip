@@ -26,22 +26,22 @@ public class Util {
 		return (int) lastPosition.getRight();
 	}
 	
-	public static String getNumberX(Scanner entradaEscaner) {
+	public static String getNumberX(Scanner entradaEscaner,int lengthBoard) {
 		System.out.println ("Please introduce a value for X between 0-9:");
 	    String entradaX = entradaEscaner.nextLine ();
-	    if (!validateNumber(entradaX)) {
-		   return getNumberX(entradaEscaner); 
+	    if (validateNumber(entradaX) && validateLongitudNumber(entradaX, lengthBoard)) {
+		    return entradaX;	    	
 	    }
-	    return entradaX;
+	    return getNumberX(entradaEscaner,lengthBoard); 
 	}
 	
-	public static String getNumberY(Scanner entradaEscaner) {
+	public static String getNumberY(Scanner entradaEscaner,int lengthBoard) {
 		System.out.println ("Please introduce a value for Y between 0-9:");
 	    String entradaY = entradaEscaner.nextLine ();
-	    if (!validateNumber(entradaY)) {
-		   return getNumberY(entradaEscaner); 
+	    if (validateNumber(entradaY) && validateLongitudNumber(entradaY, lengthBoard)) {
+		   return entradaY; 
 	    }
-	    return entradaY;
+	    return getNumberY(entradaEscaner,lengthBoard); 
 	}
 	
 	private static boolean validateNumber(String dataTyped) {
@@ -54,6 +54,13 @@ public class Util {
 	    		 .add(new ParametersInitial(p.split(",")[0],Integer.valueOf(p.split(",")[1].trim())))
 	       );
 	       return list;
+	}
+	
+	private static boolean validateLongitudNumber(String number,int lengthBoard) {		
+		if(lengthBoard > Integer.valueOf(number) && Integer.valueOf(number) >= 0){
+			return true;
+		}
+		return false;
 	}
 	
 }
