@@ -6,8 +6,8 @@ import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
 
 @FunctionalInterface
-public interface ITurn<L, R> {
+public interface ITurn {
 	
-	public void doMovement(Ship<L,R> ship,int numberOrietntationTried) throws 
+	public void doMovement(Ship ship,int numberOrietntationTried) throws 
 		OutOfLimitsException, CellPopulatedException,AllOrientationAreBusyException;
 }

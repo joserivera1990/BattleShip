@@ -18,11 +18,11 @@ public class Util {
 		return (int) (Math.random() * maxNumber-1) + 1;
 	}
     
-	public static <L, R> int getLeft(Pair<L, R> lastPosition) {
+	public static int getLeft(Pair<Integer, Integer> lastPosition) {
 		return (int) lastPosition.getLeft();
 	}
 	
-	public static <L, R> int getRight(Pair<L, R> lastPosition) {
+	public static int getRight(Pair<Integer, Integer> lastPosition) {
 		return (int) lastPosition.getRight();
 	}
 	

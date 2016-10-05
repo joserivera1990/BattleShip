@@ -15,9 +15,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class BuildWorld<L,R> {
+public class BuildWorld {
 		
-	public void createWorld(Board<L, R> board,List<Ship<L, R>> listShip) {
+	public void createWorld(Board board,List<Ship> listShip) {
 		listShip.stream().forEach( ship -> {
 			buildShipInitial(board, 0, ship);	
 			addCellToBoard(ship, board);
@@ -25,21 +25,20 @@ public class BuildWorld<L,R> {
 		board.printBoard();
 	}
 	
-	@SuppressWarnings("unchecked")
-	protected  Ship<L, R> buildShipInitial(Board<L, R> board,int numberTimes,Ship<L, R> ship) {
+	protected  Ship buildShipInitial(Board board,int numberTimes,Ship ship) {
         int x = Util.getRandomNumber(board.getLength());
         int y = Util.getRandomNumber(board.getLength());		
-		ship.setPositionStarting((Pair<L, R>) Pair.of(x,y));
-		List<IMovement<L, R>> listMovement = new ArrayList<>();
+		ship.setPositionStarting((Pair<Integer, Integer>) Pair.of(x,y));
+		List<IMovement> listMovement = new ArrayList<>();
 		for (int i = 0; i < ship.getLongitude()-1; i++) {
-			IMovement<L, R> movement = new Ahead<>();
+			IMovement movement = new Ahead();
 			listMovement.add(movement);
 		}
 		doMovements(listMovement, board, numberTimes, ship);
 		return ship;
 	}
 	
-	protected void doMovements(List<IMovement<L, R>> listMovement,Board<L, R> board,int numberTimes,Ship<L, R> ship) {
+	protected void doMovements(List<IMovement> listMovement,Board board,int numberTimes,Ship ship) {
 		int numberOrietntationTry = 1;
 		try {
 			goAheadMovements(listMovement,ship,board,numberTimes,numberOrietntationTry);
@@ -49,7 +48,7 @@ public class BuildWorld<L,R> {
 		}
 	}
 	
-	private void againBuilShipInitial(Board<L, R> board,int numberTimes,Ship<L, R> ship) {
+	private void againBuilShipInitial(Board board,int numberTimes,Ship ship) {
 	        ship.inicializarPosition();
 			numberTimes++;
 			if (numberTimes == 10) {
@@ -58,11 +57,11 @@ public class BuildWorld<L,R> {
 			buildShipInitial(board,numberTimes,ship);
 	}
 	
-	private void goAheadMovements(List<IMovement<L, R>> listMovement,Ship<L, R> ship,Board<L, R> board,int numberTimes,
+	private void goAheadMovements(List<IMovement> listMovement,Ship ship,Board board,int numberTimes,
 			int numberOrietntationTry) throws CellPopulatedException, OutOfLimitsException, AllOrientationAreBusyException {
 
 		try {		
-			for (IMovement<L, R> iMovement : listMovement) {
+			for (IMovement iMovement : listMovement) {
 				iMovement.doMovement(ship,board);
 			}
 		} catch (OutOfLimitsException | CellPopulatedException e) {
@@ -70,18 +69,18 @@ public class BuildWorld<L,R> {
 		} 
 	}
 	
-	private void changeOrientationTryAgain(Ship<L, R> ship,Board<L, R> board,List<IMovement<L, R>> listMovement,
+	private void changeOrientationTryAgain(Ship ship,Board board,List<IMovement> listMovement,
 			int numberTimes,int numberOrietntationTry) throws OutOfLimitsException, CellPopulatedException, AllOrientationAreBusyException {
     	ship.inicializarPosition();
-		ITurn<L, R> movement = new Right<>();
+		ITurn movement = new Right();
     	movement.doMovement(ship,numberOrietntationTry);
     	numberOrietntationTry++;
     	goAheadMovements(listMovement, ship,board,numberTimes,numberOrietntationTry);    
 	}
 	
-	private void addCellToBoard(Ship<L, R> ship,Board<L, R> board) {		
+	private void addCellToBoard(Ship ship,Board board) {		
 		ship.getPosition().stream()
 		                  .forEach( p -> 
-		      			  	board.addCell(Util.getRight(p), Util.getLeft(p), new Cell(new Ship<L, R>(ship, p))));
+		      			  	board.addCell(Util.getRight(p), Util.getLeft(p), new Cell(new Ship(ship, p))));
 	}
 }

@@ -30,75 +30,70 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Util.class,ShipUtil.class})
-public class BuildWorldTest<L, R> {
+public class BuildWorldTest {
     
-	private Board<L, R> board;
-	BuildWorld<L, R> buildWorld = new BuildWorld<>();
+	private Board board;
+	BuildWorld buildWorld = new BuildWorld();
 	@Before
 	public void inicializarVariables() {
-		board = new Board<>(10);
-		buildWorld = new BuildWorld<>();
+		board = new Board(10);
+		buildWorld = new BuildWorld();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void buildShipWithOrientationNorthTest() {
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("N"));
-		Ship<L, R> ship = new Ship<>(5,ShipType.getEnum("P"),"P");
+		Ship ship = new Ship(5,ShipType.getEnum("P"),"P");
 		PowerMockito.when(Util.getRandomNumber(10)).thenReturn(5);
 		buildWorld.buildShipInitial(board, 0, ship);
 		assertEquals(5, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(5,5), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,6), ship.getPosition().stream().skip(1).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,7), ship.getPosition().stream().skip(2).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,8), ship.getPosition().stream().skip(3).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,9), ship.getPosition().stream().reduce((first,second)->second).get()); 
+		assertEquals(Pair.of(5,5), ship.getPosition().stream().findFirst().get());
+		assertEquals(Pair.of(5,6), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(5,7), ship.getPosition().stream().skip(2).findFirst().get());
+		assertEquals(Pair.of(5,8), ship.getPosition().stream().skip(3).findFirst().get());
+		assertEquals(Pair.of(5,9), ship.getPosition().stream().reduce((first,second)->second).get()); 
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void buildShipWithOrientationEastTest() {
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("E"));
-		Ship<L, R> ship = new Ship<>(3,ShipType.getEnum("S"),"S");
+		Ship ship = new Ship(3,ShipType.getEnum("S"),"S");
 		PowerMockito.when(Util.getRandomNumber(10)).thenReturn(4);
 		buildWorld.buildShipInitial(board, 0, ship);
 		assertEquals(3, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(4,4), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,4), ship.getPosition().stream().skip(1).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(6,4), ship.getPosition().stream().skip(2).findFirst().get()); 
+		assertEquals(Pair.of(4,4), ship.getPosition().stream().findFirst().get());
+		assertEquals( Pair.of(5,4), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(6,4), ship.getPosition().stream().skip(2).findFirst().get()); 
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void buildShipWithOrientationSouthTest() {
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("S"));
-		Ship<L, R> ship = new Ship<>(4,ShipType.getEnum("A"),"A");
+		Ship ship = new Ship(4,ShipType.getEnum("A"),"A");
 		PowerMockito.when(Util.getRandomNumber(10)).thenReturn(3);
 		buildWorld.buildShipInitial(board, 0, ship);
 		assertEquals(4, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(3,3), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(3,2), ship.getPosition().stream().skip(1).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(3,1), ship.getPosition().stream().skip(2).findFirst().get()); 
-		assertEquals((Pair<L, R>) Pair.of(3,0), ship.getPosition().stream().skip(3).findFirst().get());
+		assertEquals(Pair.of(3,3), ship.getPosition().stream().findFirst().get());
+		assertEquals(Pair.of(3,2), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(3,1), ship.getPosition().stream().skip(2).findFirst().get()); 
+		assertEquals(Pair.of(3,0), ship.getPosition().stream().skip(3).findFirst().get());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void buildShipWithOrientationWestTest() {
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("W"));
-		Ship<L, R> ship = new Ship<>(2,ShipType.getEnum("B"),"B");
+		Ship ship = new Ship(2,ShipType.getEnum("B"),"B");
 		PowerMockito.when(Util.getRandomNumber(10)).thenReturn(6);
 		buildWorld.buildShipInitial(board, 0, ship);
 		assertEquals(2, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(6,6), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(5,6), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(6,6), ship.getPosition().stream().findFirst().get());
+		assertEquals(Pair.of(5,6), ship.getPosition().stream().skip(1).findFirst().get());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void doMovementWhenFirstCellIsAlreadyPoblatedNorthTest() {
 		//like the cell starting [5,7] is already porblated inmediatly choose a new postion x and y random 
@@ -106,51 +101,49 @@ public class BuildWorldTest<L, R> {
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("N"));
 		PowerMockito.when(Util.getRandomNumber(10)).thenReturn(2);
-		PowerMockito.when(Util.getLeft((Pair<L, R>) Pair.of(5,7))).thenReturn(5);
-		PowerMockito.when(Util.getRight((Pair<L, R>) Pair.of(5,7))).thenReturn(7);
-		Ship<L, R> ship = new Ship<>(4,ShipType.getEnum("A"),"A");
-		ship.setPositionStarting((Pair<L, R>) Pair.of(5,7));
+		PowerMockito.when(Util.getLeft(Pair.of(5,7))).thenReturn(5);
+		PowerMockito.when(Util.getRight(Pair.of(5,7))).thenReturn(7);
+		Ship ship = new Ship(4,ShipType.getEnum("A"),"A");
+		ship.setPositionStarting(Pair.of(5,7));
 		buildWorld.doMovements(getListMovement(), addCellAddedToBoard(board), 0, ship);
 		assertEquals(4, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(2,2), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(2,3), ship.getPosition().stream().skip(1).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(2,4), ship.getPosition().stream().skip(2).findFirst().get()); 
-		assertEquals((Pair<L, R>) Pair.of(2,5), ship.getPosition().stream().skip(3).findFirst().get());
+		assertEquals(Pair.of(2,2), ship.getPosition().stream().findFirst().get());
+		assertEquals(Pair.of(2,3), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(2,4), ship.getPosition().stream().skip(2).findFirst().get()); 
+		assertEquals(Pair.of(2,5), ship.getPosition().stream().skip(3).findFirst().get());
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void doWhenOneSecondCellIsAlreadyPoblatedChangePositionWestTest() {
 		//like the cell [5,7] is already poblated the cell starting [4,7] change the position from E to S
 		// and start the process again.
 		PowerMockito.mockStatic(ShipUtil.class,Util.class);
 		PowerMockito.when(ShipUtil.getRandomOrientation()).thenReturn(Orientation.getEnum("E"));
-		Ship<L, R> ship = new Ship<>(4,ShipType.getEnum("A"),"A");
-		ship.setPositionStarting((Pair<L, R>) Pair.of(4,7));
+		Ship ship = new Ship(4,ShipType.getEnum("A"),"A");
+		ship.setPositionStarting(Pair.of(4,7));
 		buildWorld.doMovements(getListMovement(), addCellAddedToBoard(board), 0, ship);
 		assertEquals(4, ship.getPosition().size());
-		assertEquals((Pair<L, R>) Pair.of(4,7), ship.getPosition().stream().findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(4,6), ship.getPosition().stream().skip(1).findFirst().get());
-		assertEquals((Pair<L, R>) Pair.of(4,5), ship.getPosition().stream().skip(2).findFirst().get()); 
-		assertEquals((Pair<L, R>) Pair.of(4,4), ship.getPosition().stream().skip(3).findFirst().get());
+		assertEquals(Pair.of(4,7), ship.getPosition().stream().findFirst().get());
+		assertEquals(Pair.of(4,6), ship.getPosition().stream().skip(1).findFirst().get());
+		assertEquals(Pair.of(4,5), ship.getPosition().stream().skip(2).findFirst().get()); 
+		assertEquals(Pair.of(4,4), ship.getPosition().stream().skip(3).findFirst().get());
 	}
 	
-	@SuppressWarnings("unchecked")
-	private Board<L, R> addCellAddedToBoard(Board<L, R> board){
-		Set<Pair<L,R>> setPair = new LinkedHashSet<>();
-		setPair.add((Pair<L, R>) Pair.of(5,5));
-		setPair.add((Pair<L, R>) Pair.of(5,6));
-		setPair.add((Pair<L, R>) Pair.of(5,7));
-		setPair.add((Pair<L, R>) Pair.of(5,8));
-		setPair.add((Pair<L, R>) Pair.of(5,9));
+	private Board addCellAddedToBoard(Board board){
+		Set<Pair<Integer, Integer>> setPair = new LinkedHashSet<>();
+		setPair.add(Pair.of(5,5));
+		setPair.add(Pair.of(5,6));
+		setPair.add(Pair.of(5,7));
+		setPair.add(Pair.of(5,8));
+		setPair.add(Pair.of(5,9));
 		board.setCellsAdded(setPair);
 		return board;
 	}
 	
-	private List<IMovement<L, R>> getListMovement() {
-		List<IMovement<L, R>> listMovement = new ArrayList<>();
+	private List<IMovement> getListMovement() {
+		List<IMovement> listMovement = new ArrayList<>();
 		for (int i = 0; i < 3; i++) {
-			IMovement<L, R> movement = new Ahead<>();
+			IMovement movement = new Ahead();
 			listMovement.add(movement);
 		}
 		return listMovement;

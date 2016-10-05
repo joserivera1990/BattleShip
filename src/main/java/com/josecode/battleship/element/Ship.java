@@ -10,15 +10,15 @@ import com.josecode.battleship.util.Orientation;
 import com.josecode.battleship.util.ShipType;
 import com.josecode.battleship.util.ShipUtil;
 
-public class Ship<L, R> extends Element {
+public class Ship extends Element {
 
-	int longitude;
-	Orientation orientation;
-	Set<Pair<L,R>> position;
-	Pair<L, R> positionStarting;
-	ShipType shipType;
-	boolean isSunked;
-	boolean isHit;
+	private int longitude;
+	private Orientation orientation;
+	private Set<Pair<Integer,Integer>> position;
+	private Pair<Integer, Integer> positionStarting;
+	private ShipType shipType;
+	private boolean isSunked;
+	private boolean isHit;
 	
 	private static final ShipObservable OBSERVABLE;
 
@@ -33,14 +33,14 @@ public class Ship<L, R> extends Element {
 	
 	
 	
-	public Ship(Ship<L,R> another,Pair<L, R> lastPosition) {
+	public Ship(Ship ship,Pair<Integer, Integer> lastPosition) {
 		super();
-		this.longitude = another.getLongitude();
-		this.orientation = another.getOrientation();
-		this.position = another.getPosition();
+		this.longitude = ship.getLongitude();
+		this.orientation = ship.getOrientation();
+		this.position = ship.getPosition();
 		this.positionStarting = lastPosition;
-		this.shipType = another.getShipType();
-		this.code = another.getCode();
+		this.shipType = ship.getShipType();
+		this.code = ship.getCode();
 	}
 
 
@@ -70,11 +70,11 @@ public class Ship<L, R> extends Element {
 		position = new LinkedHashSet<>();
 	}
 	
-	public Set<Pair<L, R>> getPosition() {
+	public Set<Pair<Integer, Integer>> getPosition() {
 		return position;
 	}
 
-	public void setPosition(Set<Pair<L, R>> position) {
+	public void setPosition(Set<Pair<Integer, Integer>> position) {
 		this.position = position;
 	}
 	
@@ -94,11 +94,11 @@ public class Ship<L, R> extends Element {
 		this.longitude = longitude;
 	}
 	
-	public Pair<L, R> getPositionStarting() {
+	public Pair<Integer, Integer> getPositionStarting() {
 		return positionStarting;
 	}
 
-	public void setPositionStarting(Pair<L, R> positionStarting) {
+	public void setPositionStarting(Pair<Integer, Integer> positionStarting) {
 		this.positionStarting = positionStarting;
 	}
 	

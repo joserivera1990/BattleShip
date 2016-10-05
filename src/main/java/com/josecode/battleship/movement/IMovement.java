@@ -7,9 +7,9 @@ import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
 
 @FunctionalInterface
-public interface IMovement<L,R> {
+public interface IMovement {
 	
-	public void doMovement(Ship<L,R> ship,Board<L,R> board) throws 
+	public void doMovement(Ship ship,Board board) throws 
 		OutOfLimitsException, CellPopulatedException,AllOrientationAreBusyException;
     	
 }

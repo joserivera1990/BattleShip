@@ -11,11 +11,11 @@ import com.josecode.battleship.element.Ship;
 import com.josecode.battleship.element.ThrowBad;
 import com.josecode.battleship.util.ShipUtil;
 
-public class Board<L, R> implements Observer {
+public class Board implements Observer {
   
 	private Cell [][] cells;
-	Set<Pair<L,R>> cellsAdded;
-	final int length;
+	private Set<Pair<Integer,Integer>> cellsAdded;
+	private final int length;
 	
 	public Board(final int length) {
 		this.cells = new Cell[length][length];
@@ -24,33 +24,30 @@ public class Board<L, R> implements Observer {
 	} 
 	
 	public  void addCell(int x, int y, Cell cell){
-		cells[x][y] = cell;
+		this.cells[x][y] = cell;
 	}
-	public Cell[][] getCells() {
-		return cells;
-	}
-	
+
 	public void printBoard() {
 		System.out.print("    0 1 2 3 4 5 6 7 8 9\n");
 		System.out.print("  + - - - - - - - - - -\n");	
-		for (int i = 0; i < cells.length; i++) {	
+		for (int i = 0; i < this.cells.length; i++) {	
 			System.out.print(i + " | ");
-			for (int j = 0; j < cells.length; j++) {
+			for (int j = 0; j < this.cells.length; j++) {
 				if (cells[i][j] == null) {
 					System.out.print("~"+ " ");
 				} else {
-					System.out.print(ShipUtil.returnCodePrint(cells[i][j].getElement())+ " ");
+					System.out.print(ShipUtil.returnCodePrint(this.cells[i][j].getElement())+ " ");
 				}
 			}
 			System.out.println("\n");
 		}
 	}
 	
-	public Set<Pair<L, R>> getCellsAdded() {
+	public Set<Pair<Integer, Integer>> getCellsAdded() {
 		return cellsAdded;
 	}
 
-	public void setCellsAdded(Set<Pair<L, R>> cellsAdded) {
+	public void setCellsAdded(Set<Pair<Integer, Integer>> cellsAdded) {
 		this.cellsAdded = cellsAdded;
 	}
 	
@@ -58,17 +55,15 @@ public class Board<L, R> implements Observer {
 		return length;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void checkSpecificCell(int x, int y) {
 		Cell cell = this.cells[y][x];
         if (cell == null) {
         	this.cells[y][x] = new Cell(new ThrowBad());
         } else if (cell.getElement() instanceof Ship) {
-        	((Ship<L,R>)cell.getElement()).setHit(true);
+        	((Ship)cell.getElement()).setHit(true);
         }
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
     public void update(Observable observable, Object args) {
 		if (args instanceof Ship) {

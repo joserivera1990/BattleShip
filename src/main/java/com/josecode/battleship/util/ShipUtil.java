@@ -17,26 +17,22 @@ public class ShipUtil {
 	
 	private ShipUtil(){}
 	
-	public static <L, R> void checkPointsShip(Ship<L,R> ship,Board<L,R> board){
-          final boolean isAllHit = ship.getPosition()
-        		  					   .stream()
-        		  					   .allMatch( s -> isShipHit(s, board));
+	public static void checkPointsShip(Ship ship,Board board){
+          final boolean isAllHit = ship.getPosition().stream().allMatch( s -> isShipHit(s, board));
           if (isAllHit) {
         	  changeShipsSunked(ship, board);
           }
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static <L, R> boolean isShipHit(Pair<L,R> pair,Board<L,R> board) {
+	private static boolean isShipHit(Pair<Integer,Integer> pair,Board board) {
 		Cell cell = board.getSpecificCell(Util.getLeft(pair), Util.getRight(pair));
-		return ((Ship<L,R>)cell.getElement()).isHit();
+		return ((Ship)cell.getElement()).isHit();
 	}
 	
-	@SuppressWarnings("unchecked")
-	private static <L, R> void changeShipsSunked(Ship<L,R> ship,Board<L,R> board) {
+	private static void changeShipsSunked(Ship ship,Board board) {
 		ship.getPosition().stream().forEach( s -> {
 			Cell cell = board.getSpecificCell(Util.getLeft(s), Util.getRight(s));
-			 ((Ship<L,R>)cell.getElement()).setSunked(true);
+			 ((Ship)cell.getElement()).setSunked(true);
 		});
 	}
 	

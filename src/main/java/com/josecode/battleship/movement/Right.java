@@ -4,12 +4,12 @@ import com.josecode.battleship.element.Ship;
 import com.josecode.battleship.exception.AllOrientationAreBusyException;
 import com.josecode.battleship.util.Orientation;
 
-public class Right<L,R> implements ITurn<L,R>{
+public class Right implements ITurn {
 	
 	private static final int NUMBER_COORDINATE = 4;
 	
 	@Override
-	public void doMovement(Ship<L, R> ship,int numberOrientationTried)
+	public void doMovement(Ship ship,int numberOrientationTried)
 			throws AllOrientationAreBusyException {
 		
 		if (numberOrientationTried == NUMBER_COORDINATE) {

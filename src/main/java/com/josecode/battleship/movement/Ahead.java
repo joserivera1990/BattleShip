@@ -10,12 +10,11 @@ import com.josecode.battleship.exception.CellPopulatedException;
 import com.josecode.battleship.exception.OutOfLimitsException;
 import com.josecode.battleship.util.Util;
 
-public class Ahead<L,R> implements IMovement<L,R> {
+public class Ahead implements IMovement {
     
-	@SuppressWarnings("unchecked")
 	@Override
-	public void doMovement(Ship<L,R> ship,Board<L,R> board) throws OutOfLimitsException, CellPopulatedException {
-		Pair<L, R> lastPosition = getLastStep(ship,board);
+	public void doMovement(Ship ship,Board board) throws OutOfLimitsException, CellPopulatedException {
+		Pair<Integer, Integer> lastPosition = getLastStep(ship,board);
 		int x = (int) lastPosition.getLeft();
 		int y = (int) lastPosition.getRight();
 		switch (ship.getOrientation()) {
@@ -35,11 +34,11 @@ public class Ahead<L,R> implements IMovement<L,R> {
 		          throw new AssertionError("Ship without orientation");
 		}
 		
-		Pair<L,R> newStep = (Pair<L, R>) Pair.of(x, y);
+		Pair<Integer, Integer> newStep = Pair.of(x, y);
 		ship.getPosition().add(newStep);
 	}
 	
-	private Pair<L, R> getLastStep(Ship<L,R> ship,Board<L,R> board) throws OutOfLimitsException, 
+	private Pair<Integer, Integer> getLastStep(Ship ship,Board board) throws OutOfLimitsException, 
 		CellPopulatedException {
 	
 		if (ship.getPosition().isEmpty()) {
@@ -52,21 +51,18 @@ public class Ahead<L,R> implements IMovement<L,R> {
 		return getLastPosition(ship.getPosition());
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void checkPosibleShipPosition(int x, int y, int longitude,Set<Pair<L,R>> cellsOcuped) 
+	private void checkPosibleShipPosition(int x, int y, int longitude,Set<Pair<Integer,Integer>> cellsOcuped) 
 			throws OutOfLimitsException, CellPopulatedException {
 		if (x == longitude || y == longitude || x == -1 || y == -1 ) {
 			throw new OutOfLimitsException("Out of Limit");
 		}
-		Pair<L,R> newStep = (Pair<L, R>) Pair.of(x, y);
+		Pair<Integer,Integer> newStep = Pair.of(x, y);
 		if (cellsOcuped.contains(newStep)) {
 			throw new CellPopulatedException("Cell already populated");
 		}		
 	}
 		
-	private Pair<L, R> getLastPosition(Set<Pair<L,R>> position) {
-		return position.stream()
-		        	   .reduce((first,second) -> second)
-		               .get();
+	private Pair<Integer, Integer> getLastPosition(Set<Pair<Integer,Integer>> position) {
+		return position.stream().reduce((first,second) -> second).get();
 	}
 }

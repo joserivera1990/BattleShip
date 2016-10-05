@@ -2,7 +2,7 @@ package com.josecode.battleship.element;
 
  public abstract class Element {
        
-	public String code;
+	protected String code;
 
 	public String getCode() {
 		return code;
